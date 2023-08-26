@@ -31,7 +31,7 @@ int handle_write_char(char c, char buffer[],
 	if (width > 1)
 	{
 		buffer[BUFF_SIZE - 1] = '\0';
-		for (t = 0; i < width - 1; t++)
+		for (t = 0; t < width - 1; t++)
 			buffer[BUFF_SIZE - t - 2] = p;
 
 		if (flags & F_MINUS)
@@ -67,7 +67,7 @@ int write_number(int is_negative, int ind, char buffer[],
 	UNUSED(size);
 
 	if ((flags & F_ZERO) && !(flags & F_MINUS))
-		padd = '0';
+		p = '0';
 	if (is_negative)
 		c = '-';
 	else if (flags & F_PLUS)
