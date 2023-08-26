@@ -1,20 +1,20 @@
 #include "main.h"
 
-/************************* WRITE HANDLE *************************/
+
 /**
  * handle_write_char - Entry point
- * @c: char types.
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags.
- * @width: get width.
- * @precision: precision specifier
- * @size: Size specifier
+ * @c:input
+ * @buffer:input
+ * @flags:input
+ * @width: input
+ * @precision:input
+ * @size: input
  *
- * Return: Number of chars printed.
+ * Return: Always 0
  */
 int handle_write_char(char c, char buffer[],
 	int flags, int width, int precision, int size)
-{ /* char is stored at left and paddind at buffer's right */
+{ 
 	int t = 0;
 	char p = ' ';
 
@@ -44,42 +44,42 @@ int handle_write_char(char c, char buffer[],
 	return (write(1, &buffer[0], 1));
 }
 
-/************************* WRITE NUMBER *************************/
+
 /**
  * write_number - Entry point
- * @is_negative: Lista of arguments
- * @ind: char types.
- * @buffer: Buffer array to handle print
- * @flags:  Calculates active flags
- * @width: get width.
- * @precision: precision specifier
- * @size: Size specifier
+ * @is_negative:input
+ * @ind: input
+ * @buffer: input
+ * @flags: input
+ * @width:input
+ * @precision: input
+ * @size:input
  *
- * Return: Number of chars printed.
+ * Return: Always 0
  */
 int write_number(int is_negative, int ind, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	int length = BUFF_SIZE - ind - 1;
-	char padd = ' ', extra_ch = 0;
+	int l = BUFF_SIZE - ind - 1;
+	char p = ' ', c = 0;
 
 	UNUSED(size);
 
 	if ((flags & F_ZERO) && !(flags & F_MINUS))
 		padd = '0';
 	if (is_negative)
-		extra_ch = '-';
+		c = '-';
 	else if (flags & F_PLUS)
-		extra_ch = '+';
+		c = '+';
 	else if (flags & F_SPACE)
-extra_ch = ' ';
+		c = ' ';
 
 	return (write_num(ind, buffer, flags, width, precision,
-		length, padd, extra_ch));
+		l, p, c));
 }
 
 /**
- * write_num - Write a number using a bufffer
+ * write_num - Entry point
  * @ind: Index at which the number starts on the buffer
  * @buffer: Buffer
  * @flags: Flags

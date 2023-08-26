@@ -2,19 +2,19 @@
 /**
  * handle_print - Entry point
  * @fmt: input.
- * @l: input.
+ * @list: input.
  * @ind: input.
  * @buffer: input.
- * @f: input
- * @w: input.
- * @r: input
- * @z:input
+ * @flags: input
+ * @width: input.
+ * @precision: input
+ * @size:input
  * Return: 1 or 2;
  */
-int handle_print(const char *fmt, int *ind, va_list l, char buffer[],
-	int f, int w, int r, int z)
+int handle_print(const char *fmt, int *ind, va_list list, char buffer[],
+	int flags, int width, int precision, int size)
 {
-	int i, u = 0, c = -1;
+	int i, unknow_len = 0, printed_chars = -1;
 	fmt_t fmt_types[] = {
 		{'c', print_char}, {'s', print_string}, {'%', print_percent},
 		{'i', print_int}, {'d', print_int}, {'b', print_binary},
@@ -24,16 +24,16 @@ int handle_print(const char *fmt, int *ind, va_list l, char buffer[],
 	};
 	for (i = 0; fmt_types[i].fmt != '\0'; i++)
 		if (fmt[*ind] == fmt_types[i].fmt)
-			return (fmt_types[i].fn(l, buffer, f, w, r, z));
+			return (fmt_types[i].fn(list, buffer, flags, width, precision, size));
 
 	if (fmt_types[i].fmt == '\0')
 	{
 		if (fmt[*ind] == '\0')
 			return (-1);
-		u += write(1, "%%", 1);
+		unknow_len += write(1, "%%", 1);
 		if (fmt[*ind - 1] == ' ')
-			u += write(1, " ", 1);
-		else if (wh)
+			unknow_len += write(1, " ", 1);
+		else if (width)
 		{
 			--(*ind);
 			while (fmt[*ind] != ' ' && fmt[*ind] != '%')
@@ -42,9 +42,10 @@ int handle_print(const char *fmt, int *ind, va_list l, char buffer[],
 				--(*ind);
 			return (1);
 		}
-		u += write(1, &fmt[*ind], 1);
-		return (u);
+		unknow_len += write(1, &fmt[*ind], 1);
+		return (unknow_len);
 	}
-	return (c);
+	return (printed_chars);
 }
+
 
