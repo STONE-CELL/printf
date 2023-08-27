@@ -38,7 +38,5 @@ int get_precision(const char *format, int *i, va_list list)
 
 	*i = h - 1;
 
-	return ();
+	return (p);
 }
-
-

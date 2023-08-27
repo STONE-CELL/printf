@@ -17,7 +17,7 @@ int print_pointer(va_list types, char buffer[],
 {
 	char c = 0, p = ' ';
 	int d = BUFF_SIZE - 2, l = 2, t = 1;
-	unsigned long u
+	unsigned long u;
 	char m[] = "0123456789abcdef";
 	void *addrs = va_arg(types, void *);
 
@@ -30,12 +30,12 @@ int print_pointer(va_list types, char buffer[],
 	buffer[BUFF_SIZE - 1] = '\0';
 	UNUSED(precision);
 
-	num_addrs = (unsigned long)addrs;
+	u = (unsigned long)addrs;
 
-	while (num_addrs > 0)
+	while (u > 0)
 	{
-		buffer[d--] = m[num_addrs % 16];
-		num_addrs /= 16;
+		buffer[d--] = m[u % 16];
+		u /= 16;
 		l++;
 	}
 

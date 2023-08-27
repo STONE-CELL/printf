@@ -58,7 +58,7 @@ int print_string(va_list types, char buffer[],
 		if (flags & F_MINUS)
 		{
 			write(1, &str[0], l);
-			for (i = width - l; o > 0; o--)
+			for (o = width - l; o > 0; o--)
 				write(1, " ", 1);
 			return (width);
 		}
@@ -118,7 +118,7 @@ int print_int(va_list types, char buffer[],
 	t = convert_size_number(t, size);
 
 	if (t == 0)
-		buffer[i--] = '0';
+		buffer[j--] = '0';
 
 	buffer[BUFF_SIZE - 1] = '\0';
 	u = (unsigned long int)t;
